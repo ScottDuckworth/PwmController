@@ -1,7 +1,6 @@
 #include <PwmController.h>
 
 PwmController pwm_controller;
-PwmController::Input pwm_in;
 
 void setup() {
   Serial.begin(115200);
@@ -24,16 +23,16 @@ void loop() {
 
   if (last_read + 100 <= now) {
     last_read = now;
-    pwm_controller.readMicroseconds(&pwm_in);
-    Serial.print(pwm_in.channel1);
+    pwm_controller.read();
+    Serial.print(pwm_controller.getChannel1Microseconds());
     Serial.print(' ');
-    Serial.print(pwm_in.channel2);
+    Serial.print(pwm_controller.getChannel2Microseconds());
     Serial.print(' ');
-    Serial.print(pwm_in.channel3);
+    Serial.print(pwm_controller.getChannel3());
     Serial.print(' ');
-    Serial.print(pwm_in.channel4);
+    Serial.print(pwm_controller.getChannel4());
     Serial.print(' ');
-    Serial.print(pwm_in.channel5);
+    Serial.print(pwm_controller.getChannel5());
     Serial.println();
   }
 }
