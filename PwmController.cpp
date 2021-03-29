@@ -5,7 +5,7 @@ PwmController::PwmController() : PwmController(Wire) {}
 PwmController::PwmController(TwoWire& i2c) : i2c(i2c) {}
 
 bool PwmController::read() {
-  uint8_t buffer[5];
+  uint8_t buffer[6];
   i2c.requestFrom(i2c_addr, sizeof(buffer));
   size_t n = i2c.readBytes(buffer, sizeof(buffer));
   if (n != sizeof(buffer)) return false;
@@ -15,6 +15,10 @@ bool PwmController::read() {
   channel3 = buffer[0] & 0b00000001;
   channel4 = buffer[0] & 0b00000010;
   channel5 = buffer[0] & 0b00000100;
+  uint8_t revs = buffer[5];
+  uint8_t delta = revs - last_revs;
+  total_revs += delta;
+  last_revs = revs;
   return true;
 }
 

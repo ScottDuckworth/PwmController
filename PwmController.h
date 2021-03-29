@@ -9,6 +9,8 @@ class PwmController {
   bool channel3 = false;
   bool channel4 = false;
   bool channel5 = false;
+  uint8_t last_revs = 0;
+  uint32_t total_revs = 0;
 
  public:
   PwmController();
@@ -24,4 +26,5 @@ class PwmController {
   bool getChannel3() const { return channel3; }
   bool getChannel4() const { return channel4; }
   bool getChannel5() const { return channel5; }
+  uint32_t getRevolutionCount() const { return total_revs; }
 };
